@@ -20,11 +20,15 @@ public class QTTSTargetEveryFrame : MonoBehaviour
 
     void Update()
     {
-        TargetUsingQuadTree();
+        TargetUsingQuadtreeAndUpdatePosition();
         TargetUsingList();
     }
 
-    private void TargetUsingQuadTree() => _targetSystem?.SetTargetClosestToCurrentPosition();
+    private void TargetUsingQuadtreeAndUpdatePosition()
+    {
+        _target.OnPositionChanged();
+        _targetSystem?.SetTargetClosestToCurrentPosition();
+    }
 
     private void TargetUsingList()
     {
@@ -37,30 +41,30 @@ public class QTTSTargetEveryFrame : MonoBehaviour
                 case TargetTypes.Player:
                     foreach (QTTSTarget target in _pool.Enemies)
                     {
-                        if (SquareMagnitudeBetweenStartAndTarget(transform.position.x, transform.position.z, target.PositionX, target.PositionZ) < distance)
+                        if (SquareMagnitudeBetweenStartAndTarget(transform.position.x, transform.position.z, target.PosX, target.PosYZ) < distance)
                         {
                             newTarget = target;
-                            distance = SquareMagnitudeBetweenStartAndTarget(transform.position.x, transform.position.z, target.PositionX, target.PositionZ);
+                            distance = SquareMagnitudeBetweenStartAndTarget(transform.position.x, transform.position.z, target.PosX, target.PosYZ);
                         }
                     }
                     break;
                 case TargetTypes.Ally:
                     foreach (QTTSTarget target in _pool.Enemies)
                     {
-                        if (SquareMagnitudeBetweenStartAndTarget(transform.position.x, transform.position.z, target.PositionX, target.PositionZ) < distance)
+                        if (SquareMagnitudeBetweenStartAndTarget(transform.position.x, transform.position.z, target.PosX, target.PosYZ) < distance)
                         {
                             newTarget = target;
-                            distance = SquareMagnitudeBetweenStartAndTarget(transform.position.x, transform.position.z, target.PositionX, target.PositionZ);
+                            distance = SquareMagnitudeBetweenStartAndTarget(transform.position.x, transform.position.z, target.PosX, target.PosYZ);
                         }
                     }
                     break;
                 case TargetTypes.Enemy:
                     foreach (QTTSTarget target in _pool.Enemies)
                     {
-                        if (SquareMagnitudeBetweenStartAndTarget(transform.position.x, transform.position.z, target.PositionX, target.PositionZ) < distance)
+                        if (SquareMagnitudeBetweenStartAndTarget(transform.position.x, transform.position.z, target.PosX, target.PosYZ) < distance)
                         {
                             newTarget = target;
-                            distance = SquareMagnitudeBetweenStartAndTarget(transform.position.x, transform.position.z, target.PositionX, target.PositionZ);
+                            distance = SquareMagnitudeBetweenStartAndTarget(transform.position.x, transform.position.z, target.PosX, target.PosYZ);
                         }
                     }
                     break;

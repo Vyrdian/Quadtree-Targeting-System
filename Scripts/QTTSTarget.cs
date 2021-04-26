@@ -7,10 +7,14 @@ public class QTTSTarget : MonoBehaviour
 
     [SerializeField]
     private TargetTypes _targetType;
-    public float PositionX { get; private set; }
-    public float PositionZ { get; private set; }
 
+    public Transform Trans { get; private set; }
+    public float PosX { get; private set; }
+    public float PosYZ { get; private set; }
+    private CoordinatePairs _coordinatePair;
     private QTTSQuadtreeNode _node;
+
+    private void Start() => Trans = GetComponent<Transform>();
 
     public void SetQuadTree(QTTSQuadtree quadtree)
     {
@@ -21,23 +25,17 @@ public class QTTSTarget : MonoBehaviour
     public TargetTypes GetTargetType() => _targetType;
 
     #region Position Changing
+
     // Call this whenever this target moves
-    public void UpdatePosition()
+    public void OnPositionChanged()
     {
-        (PositionX, PositionZ) = (transform.position.x, transform.position.z);
-        if (_node != null)
-            CheckIfInDifferentNode();
+        if(_node != null && !StillInSameNode(Trans.position.x, _quadtree.CoordinatePair == CoordinatePairs.XY ? Trans.position.y : Trans.position.z))
+            ChangeNode();
     }
 
     public void SetNewNode(QTTSQuadtreeNode node) => _node = node;
 
-    private void CheckIfInDifferentNode()
-    {
-        if (!StillInSameNode())
-            ChangeNode();
-    }
-
-    private bool StillInSameNode() => _node.MinX <= PositionX && _node.MaxX >= PositionX && _node.MinZ <= PositionZ && _node.MaxZ >= PositionZ ? true : false;
+    private bool StillInSameNode(float x, float yz) =>_node.MinX <= x && _node.MaxX >= x && _node.MinYZ <= yz && _node.MaxYZ >= yz ? true : false;
 
     private void ChangeNode()
     {
@@ -46,15 +44,19 @@ public class QTTSTarget : MonoBehaviour
     }
     #endregion
 
-    private void OnEnable()
+    private void OnEnable() => _quadtree?.AddTarget(this);
+
+    protected virtual void OnDisable()
     {
-        (PositionX, PositionZ) = (transform.position.x, transform.position.z);
-        _quadtree?.AddTarget(this);
+        if (_node != null)
+            _quadtree?.RemoveTarget(_node, this, true);
     }
 
-    protected virtual void OnDisable() => _quadtree?.RemoveTarget(_node, this, true);
-
-    private void OnDestroy() => _quadtree?.RemoveTarget(_node, this, true);
+    private void OnDestroy()
+    {
+        if (_node != null)
+            _quadtree?.RemoveTarget(_node, this, true);
+    }
 
 }
 public enum TargetTypes { Player, Enemy, Ally}

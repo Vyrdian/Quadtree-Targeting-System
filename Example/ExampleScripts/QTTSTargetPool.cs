@@ -43,6 +43,7 @@ public class QTTSTargetPool : MonoBehaviour
             target.SetPoolTo(this);
             target.SetQuadTree(_quadTree);
             target.GetComponent<QTTSTargetEveryFrame>().SetTargetPool(this);
+            target.GetComponent<QTTSTargetFinder>().SetQuadTree(_quadTree);
             target.gameObject.SetActive(false);
             TargetQueue.Enqueue(target);
         }
@@ -69,6 +70,7 @@ public class QTTSTargetPool : MonoBehaviour
         target.transform.position = new Vector3(Random.Range(-_spawnRadius, _spawnRadius), .5f, Random.Range(-_spawnRadius, _spawnRadius));
         target.gameObject.SetActive(true);
         _currentTargetAmount++;
+        AddToList(target);
     }
 
     //List for comparison purposes

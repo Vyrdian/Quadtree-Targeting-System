@@ -17,21 +17,16 @@ public class QTTSTargetFinder : MonoBehaviour
 
     public void SetQuadTree(QTTSQuadtree quadtree) => _quadtree = quadtree;
 
-    public void SetTargetClosestToCurrentPosition()
+    public void SetTargetClosestToCurrentPosition() => GetTarget(transform.position.x, _quadtree.CoordinatePair == CoordinatePairs.XY ? transform.position.y : transform.position.z);
+
+    private void GetTarget(float x, float yz)
     {
-        if (_typesToTarget.Length == 1)
-            CurrentTarget = _quadtree?.ClosestTargetOfTypeToPosition(transform.position.x, transform.position.z, _typesToTarget[0], _searchRadius, _myTarget);
-        else
-            CurrentTarget = _quadtree?.ClosestTargetOfTypesToPosition(transform.position.x, transform.position.z, _typesToTarget, _searchRadius, _myTarget);
+        if (!_quadtree)
+            return;
+        CurrentTarget = _quadtree?.ClosestTargetOfTypesToPosition(x, yz, _typesToTarget, _searchRadius, _myTarget);
     }
 
-    public void SetTargetClosestToPoint(float x, float z)
-    {
-        if (_typesToTarget.Length == 1)
-            CurrentTarget = _quadtree?.ClosestTargetOfTypeToPosition(x, z, _typesToTarget[0], _searchRadius, _myTarget);
-        else
-            CurrentTarget = _quadtree?.ClosestTargetOfTypesToPosition(x, z, _typesToTarget, _searchRadius, _myTarget);
-    }
+    public void SetTargetClosestToPoint(Vector3 point) => GetTarget(point.x, _quadtree.CoordinatePair == CoordinatePairs.XY ? point.y : point.z);
 
     public void SetNewTypesToTarget(TargetTypes[] types) => _typesToTarget = types;
 

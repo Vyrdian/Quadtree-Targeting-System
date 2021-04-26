@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 7574071846608123074}
   - component: {fileID: 7574071846608123075}
   - component: {fileID: 7574071846608123072}
-  - component: {fileID: 7574071846608123078}
   - component: {fileID: -6940507719673239366}
   - component: {fileID: -4633531542011262}
+  - component: {fileID: 6331666213083772482}
   m_Layer: 0
   m_Name: Ally
   m_TagString: Untagged
@@ -99,21 +99,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7574071846608123078
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7574071846608123076}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddda5e74120b7624cac1ff47717b5b3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _typesToTarget: 01000000
-  _searchRadius: 0
-  _quadTree: {fileID: 0}
 --- !u!114 &-6940507719673239366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,7 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fe7a204c00a2cf4baf826aa51cf3c9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _quadTree: {fileID: 0}
+  _quadtree: {fileID: 0}
   _targetType: 2
 --- !u!114 &-4633531542011262
 MonoBehaviour:
@@ -141,3 +126,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _searchTypes: 01000000
+--- !u!114 &6331666213083772482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7574071846608123076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddda5e74120b7624cac1ff47717b5b3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _typesToTarget: 01000000
+  _searchRadius: 0
+  _quadtree: {fileID: 0}
