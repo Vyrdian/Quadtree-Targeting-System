@@ -13,8 +13,8 @@ public class QTTSQuadtree : MonoBehaviour
     private CoordinatePairs _startingCoordinatePair;
     public CoordinatePairs CoordinatePair { get; private set; }
 
-    [SerializeField][Min(1)]
-    private int _maxTargetsPerNode = 10;
+    [SerializeField][Min(1)][Tooltip("You can change this to fit your needs, but this seems to be a decent sweet spot")]
+    private int _maxTargetsPerNode = 5;
 
     private QTTSQuadtreeNode _mainNode;
 

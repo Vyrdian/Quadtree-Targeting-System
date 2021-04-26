@@ -529,7 +529,7 @@ MonoBehaviour:
   _center: {x: 0, y: 0, z: 0}
   _radius: 250
   _startingCoordinatePair: 1
-  _maxTargetsPerNode: 10
+  _maxTargetsPerNode: 5
 --- !u!4 &1795187730
 Transform:
   m_ObjectHideFlags: 0
